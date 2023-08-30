@@ -137,9 +137,9 @@ namespace contabancaria
             static void Sobre()
             {
                 Console.WriteLine("\n*********************************************************");
-                Console.WriteLine("Projeto Desenvolvido por: ");
+                Console.WriteLine("Projeto Desenvolvido por: Valéria Carvalho");
                 Console.WriteLine("Generation Brasil - generation@generation.org");
-                Console.WriteLine("github.com/conteudoGeneration");
+                Console.WriteLine("github.com/dValsc");
                 Console.WriteLine("*********************************************************");
             }
 
