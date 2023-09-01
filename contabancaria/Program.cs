@@ -1,4 +1,5 @@
-﻿using System;
+﻿using contabancaria.Model;
+using System;
 using System.Linq.Expressions;
 
 namespace contabancaria
@@ -9,6 +10,23 @@ namespace contabancaria
         static void Main(string[] args)
         {
             int opcao;
+
+            Conta c1 = new Conta(1, 123, 1, "Gaspar", 1000000.00M);
+
+            c1.Visualizar();
+
+            c1.SetNumero(345);
+
+            c1.Visualizar();
+
+            c1.Sacar(1000);
+
+            c1.Visualizar();
+
+            c1.Depositar(5000);
+
+            c1.Visualizar();
+
 
             while (true)
             {

@@ -10,7 +10,7 @@ namespace contabancaria.Model
 {
     public class Conta
     {
-        private int id;
+        private int numero;
         private int agencia;
         private int tipo;
         private string titular = string.Empty;
@@ -18,7 +18,7 @@ namespace contabancaria.Model
 
         public Conta(int numero, int agencia, int tipo, string titular, decimal saldo)
         {
-            this.id = numero;
+            this.numero = numero;
             this.agencia = agencia;
             this.tipo = tipo;
             this.titular = titular;
@@ -74,6 +74,49 @@ namespace contabancaria.Model
         public void SetSaldo(decimal saldo)
         {
             this.saldo = saldo;
+        }
+
+        public bool Sacar(decimal valor)
+        {
+            if (this.saldo < valor)
+            {
+                Console.WriteLine("Valor Insuficiente!");
+                return false;
+            }
+
+            this.SetSaldo(this.saldo - valor);
+            return true;
+        }
+
+        public void Depositar(decimal valor)
+        {
+            this.SetSaldo(this.saldo + valor);
+        }
+
+
+        public void Visualizar()
+        {
+
+            string tipo = "";
+
+            switch (this.tipo)
+            {
+                case 1:
+                    tipo = "Conta Corrente";
+                    break;
+                case 2:
+                    tipo = "Conta Poupança";
+                    break;
+            }
+
+            Console.WriteLine("*****************************************************");
+            Console.WriteLine("                    Dados da Conta                   ");
+            Console.WriteLine("*****************************************************");
+            Console.WriteLine($"  Número da conta: {this.numero}");
+            Console.WriteLine($"  Número da conta: {this.agencia}");
+            Console.WriteLine($"  Número da conta: {tipo}");
+            Console.WriteLine($"  Número da conta: {this.numero}");
+
         }
     }
 }
