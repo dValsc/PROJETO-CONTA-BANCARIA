@@ -76,7 +76,7 @@ namespace contabancaria.Model
             this.saldo = saldo;
         }
 
-        public bool Sacar(decimal valor)
+        public virtual bool Sacar(decimal valor)
         {
             if (this.saldo < valor)
             {
@@ -94,7 +94,7 @@ namespace contabancaria.Model
         }
 
 
-        public void Visualizar()
+        public virtual void Visualizar()
         {
 
             string tipo = "";
