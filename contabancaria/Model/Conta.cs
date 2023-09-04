@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace contabancaria.Model
 {
-    public class Conta
+    public abstract class Conta
     {
         private int numero;
         private int agencia;
@@ -16,6 +16,7 @@ namespace contabancaria.Model
         private string titular = string.Empty;
         private decimal saldo;
 
+        /* Método Construtor*/
         public Conta(int numero, int agencia, int tipo, string titular, decimal saldo)
         {
             this.numero = numero;
@@ -24,6 +25,9 @@ namespace contabancaria.Model
             this.titular = titular;
             this.saldo = saldo;
         }
+
+        // Polimorfismo de Sobrecarga
+        public Conta() { }
 
         /*Métodos Get e Set*/
         public int GetNumero()
@@ -80,12 +84,13 @@ namespace contabancaria.Model
         {
             if (this.saldo < valor)
             {
-                Console.WriteLine("Valor Insuficiente!");
+                Console.WriteLine("Saldo Insuficiente!");
                 return false;
             }
 
             this.SetSaldo(this.saldo - valor);
             return true;
+
         }
 
         public void Depositar(decimal valor)
@@ -93,11 +98,9 @@ namespace contabancaria.Model
             this.SetSaldo(this.saldo + valor);
         }
 
-
         public virtual void Visualizar()
         {
-
-            string tipo = "";
+            string tipo = string.Empty;
 
             switch (this.tipo)
             {
@@ -109,13 +112,14 @@ namespace contabancaria.Model
                     break;
             }
 
-            Console.WriteLine("*****************************************************");
-            Console.WriteLine("                    Dados da Conta                   ");
-            Console.WriteLine("*****************************************************");
-            Console.WriteLine($"  Número da conta: {this.numero}");
-            Console.WriteLine($"  Número da conta: {this.agencia}");
-            Console.WriteLine($"  Número da conta: {tipo}");
-            Console.WriteLine($"  Número da conta: {this.numero}");
+            Console.WriteLine("********************************************");
+            Console.WriteLine("Dados da Conta");
+            Console.WriteLine("********************************************");
+            Console.WriteLine($"Número da conta: {this.numero}");
+            Console.WriteLine($"Número da agência: {this.agencia}");
+            Console.WriteLine($"Tipo da conta: {tipo}");
+            Console.WriteLine($"Titular da conta: {this.titular}");
+            Console.WriteLine($"Saldo da conta: {this.saldo}");
 
         }
     }

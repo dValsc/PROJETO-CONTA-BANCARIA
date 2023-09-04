@@ -1,4 +1,5 @@
-﻿using contabancaria.Model;
+﻿using contabancaria.Controller;
+using contabancaria.Model;
 using System;
 using System.Linq.Expressions;
 
@@ -9,31 +10,17 @@ namespace contabancaria
         private static ConsoleKeyInfo ConsoleKeyInfo;
         static void Main(string[] args)
         {
-            int opcao;
+            int opcao, agencia, tipo, aniversario;
+            string? titular;
+            decimal saldo, limite;
 
-            Conta c1 = new Conta(1, 123, 2, "Gaspar", 1000000.00M);
+            ContaController contas = new();
 
-            c1.Visualizar();
-            c1.Sacar(12000.0M);
-            c1.Visualizar();
-            c1.Depositar(5000.0M);
-            c1.Visualizar();
+            ContaCorrente cc1 = new ContaCorrente(contas.GerarNumero(), 123, 1, "Samantha", 100000000.00M, 1000.00M);
+            contas.Cadastrar(cc1);
 
-            ContaCorrente cc1 = new ContaCorrente(2, 456, 1, "Ana", 2000, 500);
-
-            cc1.Visualizar();
-            cc1.Sacar(12000.0M);
-            cc1.Visualizar();
-            cc1.Depositar(5000.0M);
-            cc1.Visualizar();
-
-            ContaPoupanca cp1 = new ContaPoupanca(3, 789, 3, "Samantha", 1000, 10);
-
-            cp1.Visualizar();
-            cp1.Sacar(1000.0M);
-            cp1.Visualizar();
-            cp1.Depositar(5000.0M);
-            cp1.Visualizar();
+            ContaPoupanca cp1 = new ContaPoupanca(contas.GerarNumero(), 123, 2, "Sabrina", 1000.00M, 10);
+            contas.Cadastrar(cp1);
 
 
             while (true)
@@ -76,20 +63,51 @@ namespace contabancaria
                 switch (opcao)
                 {
                     case 1:
-
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Criar Conta\n\n");
                         Console.ResetColor();
+
+                        Console.WriteLine("Digite o Número da Agência: ");
+                        agencia = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Digite o Nome do Titular: ");
+                        titular = Console.ReadLine();
+
+                        titular ??= string.Empty;
+
+                        do
+                        {
+                            Console.WriteLine("Digite o Tipo da Conta: ");
+                            tipo = Convert.ToInt32(Console.ReadLine());
+                        } while (tipo != 1 && tipo != 2);
+
+                        Console.WriteLine("Digite o Saldo da Conta: ");
+                        saldo = Convert.ToDecimal(Console.ReadLine());
+
+                        switch (tipo)
+                        {
+                            case 1:
+                                Console.WriteLine("Digite o Limite da Conta: ");
+                                limite = Convert.ToDecimal(Console.ReadLine());
+
+                                contas.Cadastrar(new ContaCorrente(contas.GerarNumero(), agencia, tipo, titular, saldo, limite));
+                                break;
+                            case 2:
+                                Console.WriteLine("Digite o dia do Aniversário da Conta: ");
+                                aniversario = Convert.ToInt32(Console.ReadLine());
+
+                                contas.Cadastrar(new ContaPoupanca(contas.GerarNumero(), agencia, tipo, titular, saldo, aniversario));
+                                break;
+                        }
 
                         KeyPress();
                         break;
                     case 2:
-
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Listar todas as Contas\n\n");
                         Console.ResetColor();
+
+                        contas.ListarTodas();
 
                         KeyPress();
                         break;
