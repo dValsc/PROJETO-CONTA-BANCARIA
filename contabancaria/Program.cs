@@ -83,7 +83,7 @@ namespace contabancaria
                         Console.WriteLine("Digite o Nome do Titular: ");
                         titular = Console.ReadLine();
 
-                        titular ??= string.Empty;
+                        titular ??= string.Empty; //?
 
                         do
                         {
