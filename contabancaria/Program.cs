@@ -1,6 +1,7 @@
 ﻿using contabancaria.Controller;
 using contabancaria.Model;
 using System;
+using System.Drawing;
 using System.Linq.Expressions;
 
 namespace contabancaria
@@ -10,9 +11,9 @@ namespace contabancaria
         private static ConsoleKeyInfo ConsoleKeyInfo;
         static void Main(string[] args)
         {
-            int opcao, agencia, tipo, aniversario, numero;
+            int opcao, agencia, tipo, aniversario, numero, numeroDestino;
             string? titular;
-            decimal saldo, limite;
+            decimal saldo, limite, valor;
 
             ContaController contas = new();
 
@@ -200,6 +201,14 @@ namespace contabancaria
                         Console.WriteLine("Saque\n\n");
                         Console.ResetColor();
 
+                        Console.WriteLine("Digite o número da Conta: ");
+                        numero = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Digite o valor do Saque: ");
+                        valor = Convert.ToDecimal(Console.ReadLine());
+
+                        contas.Sacar(numero, valor);
+
                         KeyPress();
                         break;
                     case 7:
@@ -207,12 +216,31 @@ namespace contabancaria
                         Console.WriteLine("Depósito\n\n");
                         Console.ResetColor();
 
+                        Console.WriteLine("Digite o número da Conta: ");
+                        numero = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Digite o valor do Depósito: ");
+                        valor = Convert.ToDecimal(Console.ReadLine());
+
+                        contas.Depositar(numero, valor);
+
                         KeyPress();
                         break;
                     case 8:
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Transferência entre Contas\n\n");
                         Console.ResetColor();
+
+                        Console.WriteLine("Digite o número da Conta de Origem: ");
+                        numero = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Digite o número da Conta de Destino: ");
+                        numeroDestino = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Digite o valor da Transferência: ");
+                        valor = Convert.ToDecimal(Console.ReadLine());
+
+                        contas.Transferir(numero, numeroDestino, valor);
 
                         KeyPress();
                         break;
@@ -230,7 +258,7 @@ namespace contabancaria
             {
                 Console.WriteLine("\n*********************************************************");
                 Console.WriteLine("Projeto Desenvolvido por: Valéria Carvalho");
-                Console.WriteLine("Generation Brasil - generation@generation.org");
+                Console.WriteLine("E-mail: valeria.dcarvalho@hotmail.com");
                 Console.WriteLine("github.com/dValsc");
                 Console.WriteLine("*********************************************************");
             }
